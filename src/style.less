@@ -1,0 +1,47 @@
+@borderSizeBase: 1px;
+@colorBorder: rgb(224, 224, 224);
+@borderRadiusSmall: 6px;
+@buttonBackground: rgba(102,102,102, 10%);
+@buttonHoverBackground: rgba(102,102,102, 50%);
+@toastColor: rgba(142, 142, 142, 75%);
+
+// TODO: figure out a way to modularize css and make import work
+// with webpack at the same time.
+.buttonView {
+    cursor: pointer;
+    display: inline-block;
+    user-select: none;
+    background-color: @buttonBackground;
+    padding: 5px;
+    margin: 5px;
+    justify-content: center;
+    text-align: center;
+    &:hover {
+        background-color: @buttonHoverBackground;
+    }
+}
+
+.main {
+    box-sizing: content-box;
+    margin: 10px;
+    padding: 15px;
+    border: @borderSizeBase solid @colorBorder;
+    border-radius: @borderRadiusSmall;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.toast {
+    position: absolute;
+    bottom: -320px;
+    right: 20px;
+    width: 500px;
+    height: 50px;
+    background-color: @toastColor;
+    &:is(.active) {
+        transition: 1s;
+        bottom: 10px;
+    }
+    z-index: 999;
+}

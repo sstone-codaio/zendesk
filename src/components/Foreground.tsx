@@ -1,23 +1,27 @@
 import React from 'react';
+// @ts-ignore
+import ButtonView from './ButtonView.tsx';
+// @ts-ignore
+import Emitter from '../emitter.ts';
+// @ts-ignore
+import Toast from './Toast.tsx';
 
 function Foreground() {
-    return (
-        <div style={styles.main}>
-            <h1>Chrome Ext - Foreground</h1>
-        </div>
-    )
-}
+    const buttons = [
+        'Refund Stripe Transaction',
+        'Change Shipping Address',
+        'Refund Shopify',
+    ];
+    const onClick = (b: string) => Emitter.emit('INPUT_FROM_MAIN', {payload: b});
 
-const styles = {
-    main: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        zIndex: '1000',
-        fontSize: '80px',
-        pointerEvents: 'none'
-    }
+    const buttonElements = buttons.map((b, i) => 
+        (<ButtonView key={i} onClick={() => onClick(b)}>{b}</ButtonView>)
+    );
+    return <>
+        <div className={`main`}>
+            {buttonElements}
+        </div>
+    </>
 }
 
 export default Foreground;

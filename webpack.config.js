@@ -16,20 +16,31 @@ module.exports = {
   module: {
     rules: [{
       test: /\.(ts|tsx)$/, 
-      exclude: /node_modules/,
       use: {
         loader: 'babel-loader',
         options: {
-          presets: ['@babel/preset-env', '@babel/preset-react'],
+          presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
         }
       }
     }, {
-      test: /\.css$/i,
-      use: ["style-loader", "css-loader"],
+      test: /\.less$/i,
+      use: [
+        {loader: 'style-loader'},
+        {loader: 'css-loader'},
+        {
+          // compiles Less to CSS
+          loader: 'less-loader',
+          options: {
+            lessOptions: {
+              paths: [path.resolve(__dirname)],
+            },
+          }
+        },
+      ]
     },
     {
-        test: /\.html$/,
-        use: ['html-loader']
+      test: /\.html$/,
+      use: ['html-loader']
     }],
   },
   plugins: [
